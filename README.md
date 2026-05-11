@@ -128,7 +128,7 @@ Outputs metrics, confusion matrix, and prediction visualisations to `outputs/`.
 ## Model Weights
 
 Download the trained checkpoint:
-- **Google Drive / HuggingFace Hub**: [LINK — add after training]
+Google Drive : https://drive.google.com/file/d/1dm3UfOGH706MjDn3ady33ZiReXVsChkW/view?usp=sharing
 
 ---
 
@@ -136,6 +136,7 @@ Download the trained checkpoint:
 
 | Split | IoU | Precision | Recall | F1 |
 |-------|-----|-----------|--------|-----|
+| Train |0.6206|0.7684| 0.7645|0.7664|
 | Val   | — | — | — | — |
 | Test  | — | — | — | — |
 
