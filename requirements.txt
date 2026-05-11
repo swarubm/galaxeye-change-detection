@@ -1,0 +1,27 @@
+# GalaxEye Change Detection — Requirements
+# Python 3.10+
+# Install: pip install -r requirements.txt
+
+# Core deep learning
+torch==2.1.2
+torchvision==0.16.2
+
+# Model architecture
+segmentation-models-pytorch==0.3.3
+timm==0.9.12
+
+# Data and augmentation
+albumentations==1.3.1
+rasterio==1.3.9
+Pillow==10.2.0
+numpy==1.26.4
+
+# Config and utilities
+PyYAML==6.0.1
+tqdm==4.66.1
+
+# Visualisation
+matplotlib==3.8.2
+
+# Optional: experiment tracking (comment out if not using)
+# wandb==0.16.3

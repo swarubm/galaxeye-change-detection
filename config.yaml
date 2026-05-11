@@ -1,0 +1,60 @@
+# ─────────────────────────────────────────────────────────
+#  GalaxEye — Binary Change Detection Config
+#  Tuned for: 2781 train samples, Kaggle T4 GPU (16GB)
+# ─────────────────────────────────────────────────────────
+
+# Reproducibility
+seed: 42
+
+# Dataset
+data:
+  root: "data/"                  # on Kaggle: /kaggle/input/your-dataset-name/
+  img_size: 256                  # patch size
+  eo_channels: 3
+  sar_channels: 1
+  num_workers: 2                 # set 0 if you get dataloader errors
+
+# Model
+model:
+  backbone: "efficientnet-b0"    # lightweight, fast, strong
+  encoder_weights: "imagenet"    # pretrained — allowed by assignment
+  in_channels: 8                 # pre_eo(3) + pre_sar(1) + post_eo(3) + post_sar(1)
+
+# Training
+# With 2781 samples, batch_size=8 → 347 steps/epoch
+# 50 epochs on T4 ≈ 40-50 minutes total
+train:
+  epochs: 50
+  batch_size: 8
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  optimizer: "adamw"
+  scheduler: "cosine"
+  warmup_epochs: 3
+
+  # Class imbalance — masks are mostly black (no-change)
+  # pos_weight=8 strongly upweights the rare change pixels
+  pos_weight: 8.0
+
+  # Loss: dice handles overlap, bce handles pixel-level imbalance
+  loss: "dice_bce"
+  dice_weight: 0.5
+  bce_weight: 0.5
+
+  # Checkpointing
+  save_dir: "checkpoints/"
+  save_every: 5
+  early_stopping_patience: 15
+
+# Augmentations
+augmentation:
+  horizontal_flip: true
+  vertical_flip: true
+  rotate_90: true
+  random_brightness_contrast: true
+  gaussian_noise: true
+
+# Evaluation
+eval:
+  threshold: 0.5
+  batch_size: 4
